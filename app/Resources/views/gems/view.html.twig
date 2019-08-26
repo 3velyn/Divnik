@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-12">
+                <header>
+                    <h2>{{ gem.name }}</h2>
+                </header>
+
+                <p>
+                    {{ gem.info }}
+                </p>
+
+                <footer>
+                    <div class="pull-right">
+                        <a class="btn btn-success btn-xs" href="{{ path('gem_edit', {id: gem.id}) }}">Edit</a>
+                        <a class="btn btn-danger btn-xs" href="{{ path('gem_delete', {id: gem.id}) }}">Delete</a>
+                        <a class="btn btn-default btn-xs" href="{{ path('gems_all') }}">back &raquo;</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

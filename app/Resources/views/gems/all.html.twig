@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {% for msg in app.session.flashBag.get('info') %}
+        <div class="alert alert-success" role="alert" id="info">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
+    <div class="container body-content">
+        <div class="row">
+            {% for gem in gems %}
+                <div class="col-md-6">
+                    <div>
+
+                        <header>
+                            <h2>{{ gem.name }}</h2>
+                        </header>
+
+                        <p>
+                            {{ gem.info }}
+                        </p>
+
+                        <div class="pull-right">
+                            <a class="btn btn-success btn-xs"
+                               href="{{ path('gem_view', {id: gem.id}) }}">View Gem</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

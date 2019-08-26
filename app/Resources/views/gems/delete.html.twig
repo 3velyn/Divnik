@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal" action="{{ path('gem_delete', {id: gem.id}) }}" method="POST">
+                <fieldset>
+                    <legend>Delete Post</legend>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="gem_title">Gem Name</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="gem_title" placeholder="Gem Name"
+                                   name="gem[name]" value="{{ gem.name }}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="gem_content">Info</label>
+                        <div class="col-sm-6">
+                        <textarea class="form-control" rows="6" id="gem_content"
+                                  name="gem[info]" disabled>{{ gem.info }}</textarea>
+                        </div>
+                    </div>
+
+                    {{ form_row(form._token) }}
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-default" href="{{ path('gem_view', {id: gem.id}) }}">Cancel</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

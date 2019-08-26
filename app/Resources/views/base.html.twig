@@ -40,27 +40,31 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         {% if app.user %}
+                            {% if app.user.admin %}
+
+                                <li>
+                                    <a href="{{ path('gems_all') }}" class="navbar-brand">
+                                        All Gems
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('gem_create') }}" class="navbar-brand">
+                                        Create Gem
+                                    </a>
+                                </li>
+                            {% endif %}
 
                             <li>
-                                <a href="" class="navbar-brand">
-                                    My Articles
-                                </a>
-                            </li>
-                            <li>
-                                <a href="" class="navbar-brand">
-                                    Create Article
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('security_logout') }}" class="navbar-brand">
-                                    Logout
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ path('user_profile') }}" class="navbar-brand">
-                                    <img src="{{ asset('uploads/images/users/' ~ app.user.getImage()) }}" width="20" height="30" class="img-rounded">
-                                </a>
-                            </li>
+                                    <a href="{{ path('security_logout') }}" class="navbar-brand">
+                                        Logout
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('user_profile') }}" class="navbar-brand">
+                                        <img src="{{ asset('uploads/images/users/' ~ app.user.getImage()) }}" width="20"
+                                             height="30" class="img-rounded">
+                                    </a>
+                                </li>
                         {% else %}
                             <li>
                                 <a href="{{ path('user_register') }}">
