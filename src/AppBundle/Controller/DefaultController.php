@@ -2,20 +2,26 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Jewellery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="blog_index")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $jewelleries = $this
+            ->getDoctrine()
+            ->getRepository(Jewellery::class);
+
+        return $this->render('default/index.html.twig', ['jewellery' => $jewelleries]);
     }
 }

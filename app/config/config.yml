@@ -7,6 +7,8 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    users_directory: '%kernel.project_dir%/web/uploads/images/users'
+    jewellery_directory: '%kernel.project_dir%/web/uploads/images/jewelleries'
 
 framework:
     #esi: ~
@@ -69,3 +71,11 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+# app/config/config.yml
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations
+    organize_migrations: false # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
