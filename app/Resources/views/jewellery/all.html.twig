@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {% for msg in app.session.flashBag.get('info') %}
+        <div class="alert alert-success" role="alert" id="info">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
+    <div class="container body-content">
+        <div class="row">
+            {% for jewellery in jewelleries %}
+                <div class="col-md-6">
+                    <div>
+
+                        <header>
+                            <h2>{{ jewellery.name }}</h2>
+                        </header>
+                        <a href="">
+                            <img src="{{ asset('uploads/images/jewellery/' ~ jewellery.image) }}" width="400px" height="200px">
+                        </a>
+                        <p>
+                            {{ jewellery.price }}
+                        </p>
+
+                        <div class="pull-right">
+                            <a class="btn btn-success btn-xs"
+                               href="">View Jewellery</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -20,8 +20,9 @@ class DefaultController extends Controller
     {
         $jewelleries = $this
             ->getDoctrine()
-            ->getRepository(Jewellery::class);
+            ->getRepository(Jewellery::class)
+            ->findAll();
 
-        return $this->render('default/index.html.twig', ['jewellery' => $jewelleries]);
+        return $this->render('default/index.html.twig', ['jewelleries' => $jewelleries]);
     }
 }

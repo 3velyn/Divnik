@@ -53,4 +53,8 @@ class GemService implements GemServiceInterface
         return $this->gemRepository->find($id);
 
     }
+
+    public function getOneByJewelleryId(int $id): ?Gem
+    {
+    }
 }
