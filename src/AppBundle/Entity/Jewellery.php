@@ -155,14 +155,13 @@ class Jewellery
      */
     public function addGem(Gem $gem)
     {
-//        var_dump($this->gems->toArray());
-//        exit();
-        if (!in_array($gem, $this->gems->toArray())) {
-            $this->gems[] = $gem;
-        }
+        $this->gems[] = $gem;
         return $this;
     }
 
+    /**
+     * @param Gem $gem
+     */
     public function removeGem(Gem $gem)
     {
         $this->gems->removeElement($gem);

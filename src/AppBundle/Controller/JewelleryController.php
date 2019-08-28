@@ -4,7 +4,6 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Gem;
 use AppBundle\Entity\Jewellery;
 use AppBundle\Entity\User;
 use AppBundle\Form\JewelleryType;
@@ -70,7 +69,7 @@ class JewelleryController extends Controller
         $this->uploadFile($form, $jewellery);
 
         $this->jewelleryService->create($jewellery);
-        $this->addFlash('info', 'jewellery created successfully');
+        $this->addFlash('info', 'Jewellery created successfully');
         return $this->redirectToRoute('jewellery_all');
     }
 
@@ -192,8 +191,6 @@ class JewelleryController extends Controller
         $em->flush();
 
         $gems = $jewellery->getGems();
-//        var_dump($gems);
-//        exit();
 
         return $this->render('jewellery/view.html.twig', ['gems' => $gems, 'jewellery' => $jewellery]);
 
