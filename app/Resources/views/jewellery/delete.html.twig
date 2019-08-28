@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal" action="{{ path('jewellery_delete', {id: jewellery.id}) }}" method="POST">
+                <fieldset>
+                    <legend>Delete Post</legend>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="jewellery_title">jewellery Name</label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="jewellery_title" placeholder="jewellery Name"
+                                   name="jewellery[name]" value="{{ jewellery.name }}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="jewellery_price">Price</label>
+                        <div class="col-sm-6">
+                        <textarea class="form-control" rows="6" id="jewellery_price"
+                                  name="jewellery[info]" disabled>{{ jewellery.price }}</textarea>
+                        </div>
+                    </div>
+
+                    {{ form_row(form._token) }}
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+{#                            <a class="btn btn-default" href="{{ path('jewellery_view', {id: jewellery.id}) }}">Cancel</a>#}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

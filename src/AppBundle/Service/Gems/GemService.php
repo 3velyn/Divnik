@@ -41,7 +41,7 @@ class GemService implements GemServiceInterface
      */
     public function getAll()
     {
-        return $this->gemRepository->findAll();
+        return $this->gemRepository->findBy([], ['name' => 'ASC']);
     }
 
     /**

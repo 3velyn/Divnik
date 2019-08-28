@@ -20,7 +20,10 @@ class JewelleryType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('price', TextType::class)
-            ->add('image', FileType::class);
+            ->add('image', FileType::class,
+                [
+                    'data_class' => null
+                ]);
     }
 
     /**

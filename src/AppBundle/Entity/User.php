@@ -258,15 +258,6 @@ class User implements UserInterface
     }
 
     /**
-     * @param Article $article
-     * @return bool
-     */
-    public function isAuthor(Article $article)
-    {
-        return $article->getAuthor()->getId() === $this->getId();
-    }
-
-    /**
      * @return bool
      */
     public function isAdmin()

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <form class="form-horizontal" enctype="multipart/form-data" action="{{ path('jewellery_edit', {id:jewellery.id}) }}"
+                  method="POST">
+                <fieldset>
+                    <legend>Add Jewellery</legend>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="jewellery_name">Jewellery Name </label>
+                        <div class="col-sm-4 ">
+                            <input type="text" class="form-control" id="jewellery_name" placeholder="Jewellery Name"
+                                   name="jewellery[name]" value="{{ jewellery.name }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="jewellery_price">Price</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="jewellery_price" placeholder="Jewellery Price"
+                                   name="jewellery[price]" value="{{ jewellery.price }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="jewellery_image">Upload Image</label>
+                        <div class="col-sm-4 ">
+                            <input type="file" accept=".jpg, .jpeg, .png" class="form-control" id="jewellery_image"
+                                   placeholder="Upload Image"
+                                   name="jewellery[image]" required>
+                        </div>
+                    </div>
+                    <div id="gems_choices" >
+
+                        {% for gem in gems %}
+                            <input type="checkbox" name="{{ gem.id }}" value="{{ gem.name }}"> {{ gem.name }}<br>
+
+                        {% endfor %}
+                    </div>
+
+                    {{ form_row(form._token) }}
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-default" href="{{ path('blog_index') }}">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

@@ -32,13 +32,14 @@
                             </a>
                         {% endif %}
 
+                        <p>
+                            {{ jewellery.price }}
+                        </p>
 
-                        <footer>
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-xs"
-                                   href="#">Read more &raquo;</a>
-                            </div>
-                        </footer>
+                        <div class="pull-right">
+                            <a class="btn btn-success btn-xs"
+                               href="{{ path('jewellery_view', {id: jewellery.id}) }}">View Jewellery</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

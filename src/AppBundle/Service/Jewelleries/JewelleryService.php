@@ -4,6 +4,7 @@
 namespace AppBundle\Service\Jewelleries;
 
 
+use AppBundle\Entity\Gem;
 use AppBundle\Entity\Jewellery;
 use AppBundle\Repository\JewelleryRepository;
 use AppBundle\Service\Gems\GemServiceInterface;
