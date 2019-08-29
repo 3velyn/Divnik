@@ -56,7 +56,11 @@
                         {% if app.user %}
 
                             {% if app.user.admin %}
-
+                                <li>
+                                    <a href="{{ path('jewellery_all') }}" class="navbar-brand">
+                                        All Jewelleries
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{{ path('gems_all') }}" class="navbar-brand">
                                         All Gems
@@ -75,9 +79,12 @@
                             {% endif %}
                             <li>
                                 <a href="{{ path('user_profile') }}" class="navbar-brand">
+                                    {% if app.user.getImage() %}
                                     <span><img src="{{ asset('uploads/images/users/' ~ app.user.getImage()) }}"
                                                width="20"
-                                               height="30" class="img-rounded"> </span>Profile
+                                               height="30" class="img-rounded"> </span>
+                                    {% endif %}
+                                    Profile
                                 </a>
                             </li>
                             <li>
@@ -89,12 +96,11 @@
                         {% else %}
                             <li>
                                 <a href="{{ path('user_register') }}">
-                                    <span class="glyphicon glyphicon-user"></span>
                                     REGISTER
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('security_login') }}"><span class="glyphicon glyphicon-log-in"></span>
+                                <a href="{{ path('security_login') }}">
                                     LOGIN
                                 </a>
                             </li>

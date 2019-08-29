@@ -26,11 +26,9 @@
                             <h2>{{ jewellery.name }}</h2>
                         </header>
 
-                        {% if jewellery.image %}
-                            <a href="">
+                            <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
                                 <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="400px" height="200px">
                             </a>
-                        {% endif %}
 
                         <p>
                             {{ jewellery.price }}

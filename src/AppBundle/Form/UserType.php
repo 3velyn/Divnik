@@ -33,6 +33,10 @@ class UserType extends AbstractType
             ->add('address', TextType::class,
                 [
                     'data_class' => null
+                ])
+            ->add('phone', TextType::class,
+                [
+                    'data_class' => null
                 ]);
     }/**
      * {@inheritdoc}

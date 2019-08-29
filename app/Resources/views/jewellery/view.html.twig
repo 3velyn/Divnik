@@ -9,7 +9,8 @@
                 </header>
 
                 <p>
-                    <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="400px" height="200px">
+                    <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="400px"
+                         height="200px">
                 </p>
                 <p>
                     {{ jewellery.price }}
@@ -20,9 +21,9 @@
                 <div id="gems" class="collapse">
                     {% for gem in gems %}
 
-                    <h4>{{ gem.name }}</h4>
-                    <p>{{ gem.info }}</p>
-                    <hr />
+                        <h4>{{ gem.name }}</h4>
+                        <p>{{ gem.info }}</p>
+                        <hr/>
 
                     {% endfor %}
 
@@ -30,13 +31,13 @@
                 <footer>
                     <div class="pull-right">
                         {% if app.user.admin %}
-                        <a class="btn btn-success btn-xs" href="{{ path('jewellery_edit', {id: jewellery.id}) }}">Edit</a>
-                        <a class="btn btn-danger btn-xs" href="{{ path('jewellery_delete', {id: jewellery.id}) }}">Delete</a>
-                            {% else %}
-                                <a class="btn btn-success btn-xs" href="">Buy</a>
-
+                            <a class="btn btn-success btn-xs" href="{{ path('jewellery_edit', {id: jewellery.id}) }}">Edit</a>
+                            <a class="btn btn-danger btn-xs" href="{{ path('jewellery_delete', {id: jewellery.id}) }}">Delete</a>
+                            <a class="btn btn-default btn-xs" href="{{ path('jewellery_all') }}">back &raquo;</a>
+                        {% else %}
+                            <a class="btn btn-success btn-xs" href="">Buy</a>
+                            <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
                         {% endif %}
-                        <a class="btn btn-default btn-xs" href="{{ path('jewellery_all') }}">back &raquo;</a>
                     </div>
                 </footer>
             </div>

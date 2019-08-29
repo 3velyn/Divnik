@@ -43,6 +43,7 @@ class UserService implements UserServiceInterface
         $user->setPassword($passwordHash);
         $user->setImage('');
         $user->setAddress('');
+        $user->setPhone('');
 
         $roleUser = $this->roleService->findOneBy('ROLE_USER');
         $user->addRole($roleUser);

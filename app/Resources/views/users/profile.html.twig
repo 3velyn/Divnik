@@ -4,7 +4,9 @@
 
     <h1>Hello, {{ user.email }}</h1>
 
-    <img src="{{ asset('uploads/images/users/') ~ user.image}}" height="200px" width="180px" class="img-rounded">
+    {% if user.image %}
+        <img src="{{ asset('uploads/images/users/') ~ user.image }}" height="200px" width="180px" class="img-rounded">
+    {% endif %}
 
     <h3>Full Name: {{ user.fullName }}</h3>
 

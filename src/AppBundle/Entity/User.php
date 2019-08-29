@@ -58,6 +58,13 @@ class User implements UserInterface
      */
     private $address;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255)
+     */
+    private $phone;
+
 
     /**
      * @var ArrayCollection
@@ -187,6 +194,22 @@ class User implements UserInterface
     public function setAddress(string $address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone(string $phone)
+    {
+        $this->phone = $phone;
     }
 
     /**
