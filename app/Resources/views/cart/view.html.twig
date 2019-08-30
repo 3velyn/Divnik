@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {% for msg in app.session.flashBag.get('info') %}
+        <div class="alert alert-success" role="alert" id="info">
+            {{ msg }}
+        </div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('errors') %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    <h2>MY SHOPPING CART </h2>
+    <hr>
+    {% if cart is same as(null) %}
+        <h1>No Items in your cart yet</h1>
+    {% else %}
+        <div>
+            {% for jewellery in cart %}
+                <a class="pull-right" href="{{ path('cart_remove', {id: jewellery.jewelleryId}) }}"
+                   id="{{ jewellery.jewelleryId }}">x</a>
+
+                <div>
+
+                    <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
+                        <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image ) }}" width="50px"
+                             height="50px"/>
+
+                        <h3>{{ jewellery.name }}</h3></a>
+                    <div>
+                        <p><span>Quantity : </span> <span>{{ jewellery.quantity }}</span></p>
+                        <p>
+                            <span>Jewellery price : $</span> <span>{{ jewellery.price }}</span> /
+                            <span>Total : $</span> <span>{{ jewellery.totalItemPrice }}</span>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 50px; text-align: right;">
+            <p><span>Total price : $</span>{{ totalCartPrice }}<span></span></p>
+            <a href="/checkout" class="btn btn-success btn-sm">Checkout</a>
+        </div>
+    {% endif %}
+{% endblock %}

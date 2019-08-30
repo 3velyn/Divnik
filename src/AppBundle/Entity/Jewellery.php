@@ -161,9 +161,11 @@ class Jewellery
 
     /**
      * @param Gem $gem
+     * @return Jewellery
      */
     public function removeGem(Gem $gem)
     {
         $this->gems->removeElement($gem);
+        return $this;
     }
 }

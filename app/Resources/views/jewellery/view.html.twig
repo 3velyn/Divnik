@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+    {% for msg in app.session.flashBag.get('info') %}
+        <div class="alert alert-success" role="alert" id="info">
+            {{ msg }}
+        </div>
+    {% endfor %}
+
     <div class="container body-content">
         <div class="row">
             <div class="col-md-12">
@@ -35,7 +41,7 @@
                             <a class="btn btn-danger btn-xs" href="{{ path('jewellery_delete', {id: jewellery.id}) }}">Delete</a>
                             <a class="btn btn-default btn-xs" href="{{ path('jewellery_all') }}">back &raquo;</a>
                         {% else %}
-                            <a class="btn btn-success btn-xs" href="">Buy</a>
+                            <a class="btn btn-success btn-xs" href="{{ path('cart_add', {id: jewellery.id}) }}">Add to Cart</a>
                             <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
                         {% endif %}
                     </div>
