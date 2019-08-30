@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,8 +34,28 @@ class Shipment
      *
      * @ORM\Column(name="isShipped", type="boolean")
      */
-    private $isShipped;
+    private $isShipped = false;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="total_price", type="decimal", precision=10, scale=2)
+     */
+    private $totalPrice;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="shipments")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime('now');
+    }
 
     /**
      * Get id.
@@ -92,5 +113,38 @@ class Shipment
     public function getIsShipped()
     {
         return $this->isShipped;
+    }
+
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * @param string $totalPrice
+     */
+    public function setTotalPrice(string $totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
     }
 }

@@ -76,9 +76,18 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Shipment", mappedBy="user")
+     */
+    private $shipments;
+
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->shipments = new ArrayCollection();
     }
 
 
@@ -244,6 +253,24 @@ class User implements UserInterface
     public function addRole(Role $role)
     {
         $this->roles[] = $role;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Shipment[]
+     */
+    public function getShipments()
+    {
+        return $this->shipments;
+    }
+
+    /**
+     * @param Shipment $shipment
+     * @return User
+     */
+    public function addShipment(Shipment $shipment)
+    {
+        $this->shipments[] = $shipment;
         return $this;
     }
 

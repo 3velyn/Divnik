@@ -2,15 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\AppBundle;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\Jewellery;
 use AppBundle\Entity\User;
 use AppBundle\Service\Cart\CartService;
+use AppBundle\Service\Jewelleries\JewelleryServiceInterface;
 use AppBundle\Service\Users\UserServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +26,25 @@ class CartController extends Controller
      */
     private $cartService;
 
-    public function __construct(UserServiceInterface $userService, CartService $cartService)
+    /**
+     * @var ShipmentController
+     */
+    private $shipmentController;
+
+    /**
+     * @var JewelleryServiceInterface
+     */
+    private $jewelleryService;
+
+    public function __construct(UserServiceInterface $userService,
+                                CartService $cartService,
+                                ShipmentController $shipmentController,
+                                JewelleryServiceInterface $jewelleryService)
     {
         $this->userService = $userService;
         $this->cartService = $cartService;
+        $this->shipmentController = $shipmentController;
+        $this->jewelleryService = $jewelleryService;
     }
 
     /**
@@ -84,7 +97,7 @@ class CartController extends Controller
         $currentCartItem = $this->cartService->findOneByUserIdAndItemId($user->getId(), $jewellery->getId());
 
         if ($currentCartItem === null) {
-            $this->addFlash('error', 'There is no such item in your cart.');
+            $this->addFlash('errors', 'There is no such item in your cart.');
             return $this->indexAction();
         }
 
@@ -140,5 +153,36 @@ class CartController extends Controller
             $totalCartPrice += $item->getTotalItemPrice();
         }
         return array($cart, $totalCartPrice);
+    }
+
+    /**
+     * @Route("/checkout", name="checkout")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     */
+    public function checkout()
+    {
+        $user = $this->userService->currentUser();
+
+        if ($user->getAddress() === '' || $user->getPhone() === '') {
+            $this->addFlash('errors', 'Please fill missing info');
+            return $this->redirectToRoute('user_profile_edit', ['user' => $user]);
+        }
+        list($cart, $totalCartPrice) = $this->getCartInfo($user);
+        $this->shipmentController->create($cart, $totalCartPrice);
+        $this->emptyCart($user);
+
+        $this->addFlash('info', 'Your order was sent');
+        return $this->redirectToRoute('blog_index', ['jewelleries' => $this->jewelleryService->getAll()]);
+    }
+
+    /**
+     * @param User|null $user
+     */
+    private function emptyCart(?User $user)
+    {
+        $currentCart = $this->cartService->getAllByUser($user->getId());
+        foreach ($currentCart as $item) {
+            $this->cartService->delete($item);
+        }
     }
 }

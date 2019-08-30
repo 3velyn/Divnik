@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+    <div id="main">
     {% for msg in app.session.flashBag.get('info') %}
         <div class="alert alert-success" role="alert" id="info">
             {{ msg }}
@@ -16,35 +17,61 @@
     {% endfor %}
     <h2>MY SHOPPING CART </h2>
     <hr>
-    {% if cart is same as(null) %}
-        <h1>No Items in your cart yet</h1>
+    {% if cart is empty %}
+    <h1>No Items in your cart yet</h1>
     {% else %}
-        <div>
-            {% for jewellery in cart %}
-                <a class="pull-right" href="{{ path('cart_remove', {id: jewellery.jewelleryId}) }}"
-                   id="{{ jewellery.jewelleryId }}">x</a>
+    <div>
+        {% for jewellery in cart %}
+            <a class="pull-right" href="{{ path('cart_remove', {id: jewellery.jewelleryId}) }}"
+               id="{{ jewellery.jewelleryId }}">x</a>
 
+            <div>
+                <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
+                    <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image ) }}" width="50px"
+                         height="50px"/>
+                    <h3>{{ jewellery.name }}</h3></a>
                 <div>
-
-                    <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
-                        <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image ) }}" width="50px"
-                             height="50px"/>
-
-                        <h3>{{ jewellery.name }}</h3></a>
-                    <div>
-                        <p><span>Quantity : </span> <span>{{ jewellery.quantity }}</span></p>
-                        <p>
-                            <span>Jewellery price : $</span> <span>{{ jewellery.price }}</span> /
-                            <span>Total : $</span> <span>{{ jewellery.totalItemPrice }}</span>
-                        </p>
-                    </div>
+                    <p><span>Quantity : </span> <span>{{ jewellery.quantity }}</span></p>
+                    <p>
+                        <span>Jewellery price : $</span> <span>{{ jewellery.price }}</span> /
+                        <span>Total : $</span> <span>{{ jewellery.totalItemPrice }}</span>
+                    </p>
                 </div>
-                <hr>
-            {% endfor %}
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+    <div style="margin-top: 50px; text-align: right;">
+        <p><span>Total price : $</span>{{ totalCartPrice }}<span></span></p>
+        <div id="checkout">
+            <a href="{{ path('checkout') }}" id="checkout-confirm" class="btn btn-success btn-sm">Checkout</a>
+            {% endif %}
         </div>
-        <div style="margin-top: 50px; text-align: right;">
-            <p><span>Total price : $</span>{{ totalCartPrice }}<span></span></p>
-            <a href="/checkout" class="btn btn-success btn-sm">Checkout</a>
-        </div>
-    {% endif %}
+    </div>
+    </div>
+{#        <script>#}
+{#            let modal = `<div id="id01" class="w3-modal w3-animate-opacity">#}
+{#                              <div class="w3-modal-content">#}
+
+{#                                <header class="w3-container w3-teal">#}
+{#                                  <span onclick="document.getElementById('id01').style.display='none'"#}
+{#                                  class="w3-button w3-display-topright">&times;</span>#}
+{#                                  <h2>Modal Header</h2>#}
+{#                                </header>#}
+
+{#                                <div class="w3-container">#}
+{#                                  <p>Some text..</p>#}
+{#                                  <p>Some text..</p>#}
+{#                                </div>#}
+
+{#                                <footer class="w3-container w3-teal">#}
+{#                                  <p>Modal Footer</p>#}
+{#                                </footer>#}
+
+{#                              </div>#}
+{#                            </div>`;#}
+{#            $('#checkout-confirm').onclick = (function () {#}
+{#                modal.style.display = "block";#}
+{#            });#}
+{#        </script>#}
 {% endblock %}

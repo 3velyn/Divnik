@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {% if shipments is empty %}
+        <h1>No shipment history yet</h1>
+    {% else %}
+
+        {{ shipments[0].totalPrice }}
+    {% endif %}
+
+{% endblock %}
