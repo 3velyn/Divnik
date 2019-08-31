@@ -51,10 +51,17 @@ class Shipment
      */
     private $user;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ShipmentItems", mappedBy="shipmentId")
+     */
+    private $items;
 
     public function __construct()
     {
         $this->date = new \DateTime('now');
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -130,6 +137,22 @@ class Shipment
     public function setUser(User $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return ArrayCollection|ShipmentItems[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param ShipmentItems[]|ArrayCollection $items
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
     }
 
     /**

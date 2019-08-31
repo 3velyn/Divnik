@@ -175,7 +175,6 @@ class JewelleryController extends Controller
 
     /**
      * @Route("/jewellery/view/{id}", name="jewellery_view")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
      * @param Jewellery $jewellery
      * @return RedirectResponse|Response

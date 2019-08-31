@@ -4,8 +4,41 @@
     {% if shipments is empty %}
         <h1>No shipment history yet</h1>
     {% else %}
+        <h2>Not shipped yet</h2>
+        {% for shipment in shipments %}
+            {% if shipment.isShipped == 0 %}
+                {% for item in shipment.items %}
+                    {% set jewellery = item.itemId %}
+                    <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
+                        <h3><img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="30"
+                                 height="30"/> {{ jewellery.name }}</h3>
+                    </a>
+                    <p>Price: {{ jewellery.price }} | Quantity: {{ item.quantity }}</p>
+                {% endfor %}
+                <div>
+                    <p>Total Price: $ {{ shipment.totalPrice }}</p>
+                    <hr/>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <h2>Old orders</h2>
+        {% for shipment in shipments %}
+            {% if shipment.isShipped == 1 %}
+                {% for item in shipment.items %}
+                    {% set jewellery = item.itemId %}
+                    <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
+                        <h3><img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="30"
+                                 height="30"/> {{ jewellery.name }}</h3>
+                    </a>
+                    <p>Price: {{ jewellery.price }} | Quantity: {{ item.quantity }}</p>
+                {% endfor %}
+                <div>
+                    <p>Total Price: $ {{ shipment.totalPrice }}</p>
+                    <hr/>
+                </div>
 
-        {{ shipments[0].totalPrice }}
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
 {% endblock %}

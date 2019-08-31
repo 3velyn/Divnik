@@ -46,6 +46,13 @@ class Jewellery
     /**
      * @var ArrayCollection
      *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ShipmentItems", mappedBy="itemId")
+     */
+    private $shipments;
+
+    /**
+     * @var ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Gem")
      * @ORM\JoinTable(name="jewellery_gem",
      *     joinColumns={@ORM\JoinColumn(name="jewellery_id", referencedColumnName="id")},
@@ -56,6 +63,7 @@ class Jewellery
     public function __construct()
     {
         $this->gems = new ArrayCollection();
+        $this->shipments = new ArrayCollection();
     }
 
     /**
@@ -168,4 +176,21 @@ class Jewellery
         $this->gems->removeElement($gem);
         return $this;
     }
+
+    /**
+     * @return ArrayCollection|ShipmentItems[]
+     */
+    public function getShipments()
+    {
+        return $this->shipments;
+    }
+
+    /**
+     * @param ArrayCollection $shipments
+     */
+    public function setShipments(ArrayCollection $shipments)
+    {
+        $this->shipments = $shipments;
+    }
+
 }

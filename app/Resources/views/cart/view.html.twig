@@ -26,7 +26,7 @@
                id="{{ jewellery.jewelleryId }}">x</a>
 
             <div>
-                <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
+                <a href="{{ path('jewellery_view', {id: jewellery.jewelleryId}) }}">
                     <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image ) }}" width="50px"
                          height="50px"/>
                     <h3>{{ jewellery.name }}</h3></a>

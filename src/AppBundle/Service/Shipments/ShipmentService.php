@@ -9,9 +9,6 @@ use AppBundle\Entity\User;
 use AppBundle\Repository\ShipmentRepository;
 use AppBundle\Service\Users\UserServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\AbstractQuery;
-use Symfony\Component\Ldap\Adapter\ExtLdap\Query;
-use Symfony\Component\Validator\Constraints\Date;
 
 class ShipmentService implements ShipmentServiceInterface
 {
@@ -35,7 +32,7 @@ class ShipmentService implements ShipmentServiceInterface
     public function create(Shipment $shipment): bool
     {
         $user = $this->userService->currentUser();
-        $shipment->setUserId($user->getId());
+        $shipment->setUser($user);
 
         return $this->shipmentRepository->insert($shipment);
     }
@@ -68,10 +65,19 @@ class ShipmentService implements ShipmentServiceInterface
 
     /**
      * @param User $user
-     * @return ArrayCollection|Shipment[]
+     * @return object|null|Shipment[]
      */
     public function getAllByUser(User $user)
     {
-        return $this->shipmentRepository->findBy(['user' => $user]);
+        return $this->shipmentRepository->findBy(['user'=> $user]);
+    }
+
+    /**
+     * @param User $user
+     * @return Shipment|null|object
+     */
+    public function getLastUserShipment(User $user): ?Shipment
+    {
+        return $this->shipmentRepository->findBy(['user' => $user], ['date' => 'DESC'])[0];
     }
 }

@@ -24,6 +24,8 @@ interface ShipmentServiceInterface
      */
     public function getAllNotShipped();
 
+    public function getLastUserShipment(User $user): ?Shipment;
+
     /**
      * @param User $user
      * @return ArrayCollection|Shipment[]
