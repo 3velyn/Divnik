@@ -7,7 +7,7 @@
                   action="{{ path('jewellery_edit', {id:jewellery.id}) }}"
                   method="POST">
                 <fieldset>
-                    <legend>Add Jewellery</legend>
+                    <legend>Edit Jewellery</legend>
 
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="jewellery_name">Jewellery Name </label>
@@ -30,11 +30,12 @@
                         <div class="col-sm-4 ">
                             <input type="file" accept=".jpg, .jpeg, .png" class="form-control" id="jewellery_image"
                                    placeholder="Upload Image"
-                                   name="jewellery[image]" required>
+                                   name="jewellery[image]">
                         </div>
                     </div>
 
                     <div id="gems_choices">
+                        <h3>Gems</h3>
                         {% for gem in gems %}
                             {% if gem in jewellery.gems %}
                                 <input type="checkbox" name="{{ gem.id }}" value="{{ gem.name }}"
@@ -50,7 +51,7 @@
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
                             <a class="btn btn-default" href="{{ path('blog_index') }}">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Edit</button>
                         </div>
                     </div>
                 </fieldset>

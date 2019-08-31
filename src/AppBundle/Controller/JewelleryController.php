@@ -122,8 +122,14 @@ class JewelleryController extends Controller
     {
         $form = $this->createForm(JewelleryType::class, $jewellery);
         $this->updateGemsInJewellery($jewellery, $request);
+
+        if ($request->request->get('image') === null) {
+            $form->remove('image');
+        }
         $form->handleRequest($request);
-        $this->uploadFile($form, $jewellery);
+        if ($request->request->get('image') !== null) {
+            $this->uploadFile($form, $jewellery);
+        }
         $this->jewelleryService->edit($jewellery);
 
         return $this->redirectToRoute('jewellery_all');

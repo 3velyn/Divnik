@@ -7,51 +7,43 @@
         </div>
     {% endfor %}
 
-    <div class="container body-content">
-        <div class="row">
-            <div class="col-md-12">
-                <header>
-                    <h2>{{ jewellery.name }}</h2>
-                </header>
+    <header>
+        <h2>{{ jewellery.name }}</h2>
+    </header>
 
-                <p>
-                    <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="400px"
-                         height="200px">
-                </p>
-                <p>
-                    {{ jewellery.price }}
-                </p>
+    <p>
+        <img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="400px"
+             height="200px">
+    </p>
+    <p>
+        {{ jewellery.price }}
+    </p>
 
-                <button data-toggle="collapse" data-target="#gems">Gems</button>
+    <button data-toggle="collapse" data-target="#gems">Gems</button>
 
-                <div id="gems" class="collapse">
-                    {% for gem in gems %}
+    <div id="gems" class="collapse">
+        {% for gem in gems %}
 
-                        <h4>{{ gem.name }}</h4>
-                        <p>{{ gem.info }}</p>
-                        <hr/>
+            <h4>{{ gem.name }}</h4>
+            <p>{{ gem.info }}</p>
+            <hr/>
 
-                    {% endfor %}
+        {% endfor %}
 
-                </div>
-                <footer>
-                    <div class="pull-right">
-                        {% if app.user %}
-                            {% if app.user.admin %}
-                                <a class="btn btn-success btn-xs"
-                                   href="{{ path('jewellery_edit', {id: jewellery.id}) }}">Edit</a>
-                                <a class="btn btn-danger btn-xs"
-                                   href="{{ path('jewellery_delete', {id: jewellery.id}) }}">Delete</a>
-                            {% else %}
-                                <a class="btn btn-success btn-xs" href="{{ path('cart_add', {id: jewellery.id}) }}">Add
-                                    to Cart</a>
-                            {% endif %}
-                        {% endif %}
-                        <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
-                    </div>
-                </footer>
-            </div>
-        </div>
+    </div>
+    <div class="pull-right">
+        {% if app.user %}
+            {% if app.user.admin %}
+                <a class="btn btn-success btn-xs"
+                   href="{{ path('jewellery_edit', {id: jewellery.id}) }}">Edit</a>
+                <a class="btn btn-danger btn-xs"
+                   href="{{ path('jewellery_delete', {id: jewellery.id}) }}">Delete</a>
+            {% else %}
+                <a class="btn btn-success btn-xs" href="{{ path('cart_add', {id: jewellery.id}) }}">Add
+                    to Cart</a>
+            {% endif %}
+        {% endif %}
+        <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
     </div>
 {% endblock %}
 
