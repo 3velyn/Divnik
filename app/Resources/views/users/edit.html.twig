@@ -28,12 +28,6 @@
                                    name="user[fullName]" value="{{ user.fullName }}" required>
                         </div>
                     </div>
-{#                    <div class="form-group">#}
-{#                        <div class="col-sm-4 col-sm-offset-4">#}
-{#                            <input type="button" id="change_pass" class="btn btn-danger btn-sm" value="Change Password">#}
-{#                        </div> <br/>#}
-{#                    </div>#}
-{#                    <div id="pass"></div>#}
 
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_image">Upload Image</label>
@@ -69,26 +63,4 @@
             </form>
         </div>
     </div>
-    <script>
-        $("#change_pass").click(function () {
-            let $div = $('#pass');
-            $div.empty();
-            let form = `
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="user_password_first">Password</label>
-                        <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_first" placeholder="Password" name="user[password][first]" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label" for="user_password_second">Confirm Password</label>
-                        <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_second" placeholder="Password" name="user[password][second]" required>
-                        </div>
-                    </div>
-            `;
-            $div.append(form);
-            $div.toggle(form);
-        });
-    </script>
 {% endblock %}

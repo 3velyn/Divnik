@@ -117,9 +117,15 @@ class UserController extends Controller
         if ($currentUser->getEmail() === $request->request->get('email')) {
             $form->remove('email');
         }
+
+        if ($request->request->get('image') === null) {
+            $form->remove('image');
+        }
         $form->handleRequest($request);
 
-        $this->uploadFile($form, $currentUser);
+        if ($request->request->get('image') !== null){
+            $this->uploadFile($form, $currentUser);
+        }
         $this->userService->update($currentUser);
 
         return $this->redirectToRoute('user_profile');

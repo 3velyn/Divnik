@@ -47,7 +47,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="image", type="text")
      */
     private $image;
 
