@@ -12,6 +12,7 @@ use AppBundle\Service\Shipments\ShipmentServiceInterface;
 use AppBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ShipmentController extends Controller
@@ -77,17 +78,54 @@ class ShipmentController extends Controller
     }
 
     /**
-     * @Route("/history", name="orders_history")
+     * @Route("/orders/history", name="orders_history")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function showUserShipmentHistory()
     {
         $user = $this->userService->currentUser();
         $shipments = $this->shipmentService->getAllByUser($user);
-        $shipmentItems = $this->shipmentItemsController->loadShipmentItems($shipments);
 
         return $this->render('shipments/user_history.html.twig', ['shipments' => $shipments]);
     }
 
+    /**
+     * @Route("/orders/new", name="orders_new")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function showNewOrders()
+    {
+        $shipments = $this->shipmentService->getAllNotShipped();
 
+        return $this->render('shipments/all_new.html.twig', ['shipments' => $shipments]);
+    }
+
+
+    /**
+     * @Route("/orders/ship/{id}", name="order_ship", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     *
+     * @param Shipment $shipment
+     * @return Response
+     */
+    public function shipOrder(Shipment $shipment)
+    {
+        $shipment->setIsShipped(true);
+        $this->shipmentService->edit($shipment);
+
+        $allShipments = $this->shipmentService->getAllNotShipped();
+        return $this->redirectToRoute('orders_new', ['shipments' => $allShipments]);
+    }
+
+
+    /**
+     * @Route("/orders/all", name="orders_all")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function allOrders()
+    {
+        $shipments = $this->shipmentService->getAll();
+
+        return $this->render('shipments/all.html.twig', ['shipments' => $shipments]);
+    }
 }

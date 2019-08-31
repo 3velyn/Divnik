@@ -2,11 +2,12 @@
 
 {% block main %}
     {% if shipments is empty %}
-        <h1>No shipment history yet</h1>
+        <h1>No orders history yet</h1>
     {% else %}
         <h2>Not shipped yet</h2>
         {% for shipment in shipments %}
             {% if shipment.isShipped == 0 %}
+                <p>Ordered On: {{ shipment.date|date("Y F jS \\a\\t g:ia") }}</p>
                 {% for item in shipment.items %}
                     {% set jewellery = item.itemId %}
                     <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
@@ -24,6 +25,7 @@
         <h2>Old orders</h2>
         {% for shipment in shipments %}
             {% if shipment.isShipped == 1 %}
+                <p>Ordered On: {{ shipment.date|date("Y F jS \\a\\t g:ia") }}</p>
                 {% for item in shipment.items %}
                     {% set jewellery = item.itemId %}
                     <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
@@ -36,7 +38,6 @@
                     <p>Total Price: $ {{ shipment.totalPrice }}</p>
                     <hr/>
                 </div>
-
             {% endif %}
         {% endfor %}
     {% endif %}

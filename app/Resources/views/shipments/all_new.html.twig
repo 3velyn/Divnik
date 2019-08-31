@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="row">
+            {% for shipment in shipments %}
+                <div class="container">
+                {% set user = shipment.user %}
+                <div class="col-md-3">
+                    <h3>User Information</h3>
+                    <p>Full Name: {{ user.fullName }}</p>
+                    <p>Email: {{ user.email }}</p>
+                    <p>Phone: {{ user.phone }}</p>
+                    <p>Address: {{ user.address }}</p>
+                    <a class="btn btn-success btn-sm bottom" href="{{ path('order_ship', {id: shipment.id}) }}">Ship</a>
+
+                </div>
+
+                <div class="col-md-4 col-md-offset-5">
+                    <h3>Order Information</h3>
+                    <p>Shipment ID: {{ shipment.id }}</p>
+                    {% for item in shipment.items %}
+                        {% set jewellery = item.itemId %}
+                        <a href="{{ path('jewellery_view', {id: jewellery.id}) }}">
+                            <p><img src="{{ asset('uploads/images/jewelleries/' ~ jewellery.image) }}" width="30"
+                                    height="30"/> {{ jewellery.name }}</p>
+                        </a>
+                        <p>Quantity: {{ item.quantity }}</p>
+                    {% endfor %}
+                    <h4>Total Price: $ {{ shipment.totalPrice }}</h4>
+                    <small>Ordered On: {{ shipment.date|date("Y F jS \\a\\t g:ia") }}</small>
+
+                </div>
+                <hr/>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

@@ -65,10 +65,9 @@ class CartController extends Controller
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      *
      * @param Jewellery $jewellery
-     * @param Request $request
      * @return Response
      */
-    public function addToCart(Jewellery $jewellery, Request $request)
+    public function addToCart(Jewellery $jewellery)
     {
         $user = $this->userService->currentUser();
         $currentCartItem = $this->cartService->findOneByUserIdAndItemId($user->getId(), $jewellery->getId());
