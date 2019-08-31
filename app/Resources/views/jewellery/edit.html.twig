@@ -3,7 +3,8 @@
 {% block main %}
     <div class="container body-content span=8 offset=2">
         <div class="well">
-            <form class="form-horizontal" enctype="multipart/form-data" action="{{ path('jewellery_edit', {id:jewellery.id}) }}"
+            <form class="form-horizontal" enctype="multipart/form-data"
+                  action="{{ path('jewellery_edit', {id:jewellery.id}) }}"
                   method="POST">
                 <fieldset>
                     <legend>Add Jewellery</legend>
@@ -32,11 +33,15 @@
                                    name="jewellery[image]" required>
                         </div>
                     </div>
-                    <div id="gems_choices" >
 
+                    <div id="gems_choices">
                         {% for gem in gems %}
-                            <input type="checkbox" name="{{ gem.id }}" value="{{ gem.name }}"> {{ gem.name }}<br>
-
+                            {% if gem in jewellery.gems %}
+                                <input type="checkbox" name="{{ gem.id }}" value="{{ gem.name }}"
+                                       checked="checked"> {{ gem.name }}<br>
+                            {% else %}
+                                <input type="checkbox" name="{{ gem.id }}" value="{{ gem.name }}"> {{ gem.name }}<br>
+                            {% endif %}
                         {% endfor %}
                     </div>
 
